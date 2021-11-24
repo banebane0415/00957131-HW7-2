@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>00957131-HW7-2</title>
+    <style type="text/CSS">
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            background-color: lightblue;
+            font-family: Perpetua;
+        }
+
+        table, td, th {
+            border: 1px solid black;
+            padding: 4px;
+        }
+
+        th {
+            text-align: center;
+            color: white;
+            background-color: darkblue;
+        }
+
+        tr.oddrow {
+            background-color: white;
+        }
+
+        td {
+            text-align: center;
+        }
+    </style>
+    <script type="text/javascript">
+        var tags;
+        function loadSearches() {
+
+            var length = localStorage.length;
+            tags = [];
+            for (var i = 0; i < length; ++i) {
+                tags[i] = localStorage.key(i);
+            }
+            tags.sort();
+            var output = "<table><tr><th>Title</th><th>Author</th><th>Year</th><th>URL</th></tr> "
+            for (var tag in tags) {
+                var notjson = JSON.parse(localStorage.getItem(tags[tag]));
+                var title = notjson.title2;
+                var author = notjson.author2;
+                var year = notjson.year2;
+                var url = notjson.url2;
+                output+="<tr><td>"+title+"</td><td>"+author+"</td><td>"+year+"</td><td>"+url+"</td></tr>";
+            }
+            output += "</table>";
+            document.getElementById("display").innerHTML = output;
+        }
+        function add() {
+            var title1 = document.getElementById("title");
+            var author1 = document.getElementById("author");
+            var year1 = document.getElementById("year");
+            var url1 = document.getElementById("url");
+            const obj = {
+                title2: title1.value,
+                author2: author1.value,
+                year2: year1.value,
+                url2: url1.value
+            };
+            const jsonobj = JSON.stringify(obj);
+            console.log(obj);
+            var current = new Date();
+            let time1 = current.getTime();
+            localStorage.setItem("ntou-" + time1, jsonobj);
+            loadSearches();
+
+        }
+        function rem() {
+            localStorage.clear();              
+            loadSearches();
+            window.alert("All items were removed!");
+        }
+        function start() {
+            var addbutton1 = document.getElementById("addButton");
+            var removeAllButton = document.getElementById("removeAllButton");
+            addbutton1.addEventListener("click", add, false);
+            removeAllButton.addEventListener("click", rem, false);
+            loadSearches();
+        }
+        window.addEventListener("load", start, false);
+    </script>
+</head>
+
+<body>    
+    <form action="#">
+        <p>            
+            <label>Book Title:<input id="title" type="text"></label>
+            <label>Author(s):<input id="author" type="text"></label>
+            <label>Year:<input id="year" type="number"></label>
+            <label>Book URL:<input id="url" type="url"></label>
+        </p>
+        <p>
+            <input type="button" value="Add New Item" id="addButton">
+            <input type="button" value="Remove All Items" id="removeAllButton">
+        </p>
+    </form>
+    <hr>
+    <div id="display">
+    </div>
+</body>
+
+</html>
