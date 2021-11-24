@@ -48,7 +48,7 @@
                 var author = notjson.author2;
                 var year = notjson.year2;
                 var url = notjson.url2;
-                output+="<tr><td>"+title+"</td><td>"+author+"</td><td>"+year+"</td><td>"+url+"</td></tr>";
+                output+="<tr><td>"+title+"</td><td>"+author+"</td><td>"+year+"</td><td><a href='"+url+"'target='_blank'>"+url+"</a></td></tr>";
             }
             output += "</table>";
             document.getElementById("display").innerHTML = output;
@@ -90,6 +90,7 @@
 
 <body>    
     <form action="#">
+        <a href="https://banebane0415.github.io/00957131-HW7-2/" target='_blank'>Github link</a>
         <p>            
             <label>Book Title:<input id="title" type="text"></label>
             <label>Author(s):<input id="author" type="text"></label>
